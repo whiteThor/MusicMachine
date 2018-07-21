@@ -2,6 +2,7 @@ package musicmachine.sanples.android.ruben.com.musicmachine;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -17,32 +18,30 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mDownLoadButton.findViewById(R.id.downLoadButton);
+        final DownloadThread thread = new DownloadThread();
+        thread.setName("DownloadThread");
+        thread.start();
+
+        mDownLoadButton = findViewById(R.id.downLoadButton);
         
         mDownLoadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(MainActivity.this, "Downloading", Toast.LENGTH_SHORT).show();
-                downloadSong();
+
+                for (String song : Playlist.songs) {
+                    Message message = Message.obtain();
+                    message.obj = song;
+                    thread.mDownloadHandle.sendMessage(message);
+                }
+
             }
         });
 
         
     }
 
-    private void downloadSong() {
-        long endTime = System.currentTimeMillis() + 10*1000;
 
-        while(System.currentTimeMillis() < endTime){
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-        Log.d(TAG, "Song Downloaded");
-
-    }
 }
 
 
