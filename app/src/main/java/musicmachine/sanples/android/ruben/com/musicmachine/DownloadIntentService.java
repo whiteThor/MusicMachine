@@ -1,20 +1,22 @@
 package musicmachine.sanples.android.ruben.com.musicmachine;
 
-import android.os.Handler;
-import android.os.Message;
+import android.app.IntentService;
+import android.content.Intent;
 import android.util.Log;
 
-public class DownloadHandle extends Handler {
+public class DownloadIntentService extends IntentService {
 
+    private static final String TAG = DownloadIntentService.class.getSimpleName();
 
-    private static final String TAG =DownloadHandle.class.getSimpleName();
-    private DownloadService mService;
+    public DownloadIntentService() {
+        super("DownloadIntentService");
+        setIntentRedelivery(true);
+    }
 
     @Override
-    public void handleMessage(Message msg) {
-
-        downloadSong(msg.obj.toString());
-        mService.stopSelf(msg.arg1);
+    protected void onHandleIntent(Intent intent) {
+        String song = intent.getStringExtra(MainActivity.KEY_SONG);
+        downloadSong(song);
 
     }
 
@@ -30,9 +32,5 @@ public class DownloadHandle extends Handler {
         }
         Log.d(TAG, song + " Downloaded");
 
-    }
-
-    public void setService(DownloadService service) {
-        mService = service;
     }
 }
