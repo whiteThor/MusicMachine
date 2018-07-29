@@ -24,6 +24,7 @@ public class PlayerService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         Notification.Builder notificationBuilder = new Notification.Builder(this);
         notificationBuilder.setSmallIcon(R.mipmap.ic_launcher);
+        notificationBuilder.setContentTitle("Title: Music Machine").setContentText("Ejecutando Music Machine");
         Notification notification = notificationBuilder.build();
         startForeground(11, notification);
         mMediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {

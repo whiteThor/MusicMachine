@@ -32,7 +32,7 @@ public class MainActivity extends Activity {
             mServiceMessenger = new Messenger(binder);
             Message message = Message.obtain();
             message.arg1 = 2;
-            message.arg1 = 1;
+            message.arg2 = 1;
             message.replyTo = mActivityMessenger;
             try {
                 mServiceMessenger.send(message);

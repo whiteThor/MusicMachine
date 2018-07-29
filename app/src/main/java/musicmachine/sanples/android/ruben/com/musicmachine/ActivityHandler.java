@@ -30,7 +30,7 @@ public class ActivityHandler extends Handler {
                 }
                 mMainActivity.changePlayButtonText("Pause");
             }
-        }else if(msg.arg1 == 1){
+        }else if(msg.arg1== 1){
             if(msg.arg2==1){
                 mMainActivity.changePlayButtonText("Pause");
             }else{
